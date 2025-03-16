@@ -1,18 +1,20 @@
 import { useState } from 'react'
 import './App.css'
-import ReviewForm from './pages/ratings/ReviewForm'
-import StarRating from './pages/ratings/StarRating'
+import ReviewsSection from './pages/ratings/ReviewsSection';
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [reviews, setReviews] = useState([]);
+
+  const addReview = (review) => {
+    setReviews([...reviews, review]);
+  };
 
   return (
-    <>
-    <div id="wrapper">
-      
+    <div id="wrapper"> 
+      <ReviewsSection />
     </div>
-    </>
-  )
+  );
 }
 
-export default App
+export default App;
