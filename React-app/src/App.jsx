@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import ReviewsSection from './pages/ratings/ReviewsSection';
+import AddToCart from './pages/cart/AddtoCart.jsx';
 
 
 function App() {
@@ -12,7 +13,8 @@ function App() {
 
   return (
     <div id="wrapper"> 
-      <ReviewsSection />
+  
+    
     </div>
   );
 }
