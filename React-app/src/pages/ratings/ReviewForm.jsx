@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import StarRating from "./StarRating";
 import "./rating.css";
 
-
-const ReviewForm = ({ addReview }) => {
+function ReviewForm({ addReview }) {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
 
@@ -16,19 +15,22 @@ const ReviewForm = ({ addReview }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={styles.form}>
-      <h3>Leave a Review</h3>
-      <StarRating rating={rating} setRating={setRating} />
-      <textarea
-        placeholder="Write your review..."
-        value={review}
-        onChange={(e) => setReview(e.target.value)}
-        style={styles.textarea}
-      />
-      <button type="submit" style={styles.button}>Submit</button>
-    </form>
+    <div>
+      <div id="review"></div>
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <h3>Leave a Review</h3>
+        <StarRating rating={rating} setRating={setRating} />
+        <textarea
+          placeholder="Write your review..."
+          value={review}
+          onChange={(e) => setReview(e.target.value)}
+          style={styles.textarea}
+        />
+        <button type="submit" style={styles.button}>Submit</button>
+      </form>
+    </div>
   );
-};
+}
 
 const styles = {
   form: { textAlign: "center", margin: "20px 0" },
