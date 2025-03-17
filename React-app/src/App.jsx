@@ -1,20 +1,36 @@
 import { useState } from 'react'
 import './App.css'
-import ReviewsSection from './pages/ratings/ReviewsSection';
+import {BrowserRouter, Routes, Route}from 'react-router-dom'
+
+import Reservations from './pages/Reservations/Reservations';
+import Header from './component/HeaderComponent/Header';
+
+
+
+
+
+
 
 
 function App() {
-  const [reviews, setReviews] = useState([]);
-
-  const addReview = (review) => {
-    setReviews([...reviews, review]);
-  };
+ 
 
   return (
-    <div id="wrapper"> 
-      <ReviewsSection />
-    </div>
-  );
+    
+
+      
+      <BrowserRouter>
+        <Routes>
+          <Route path='/component/HeaderComponent/Header' element={<Header />}></Route>
+          <Route path='/pages/Reservations/Reservations' element={<Reservations />}></Route>
+
+
+
+        </Routes>
+      </BrowserRouter>
+      
+    
+  )
 }
 
 export default App;
