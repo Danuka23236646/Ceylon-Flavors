@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import './App.css'
+
 import {BrowserRouter, Routes, Route}from 'react-router-dom'
 
 import Reservations from './pages/Reservations/Reservations';
 import Header from './component/HeaderComponent/Header';
+
 
 
 
@@ -27,6 +29,7 @@ function App() {
       
     
   )
+
 }
 
 export default App;
