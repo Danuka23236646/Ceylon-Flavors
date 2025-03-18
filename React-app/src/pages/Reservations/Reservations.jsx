@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { CalendarIcon, ClockIcon } from 'lucide-react';
+import React, { useState } from 'react'
+import axios from 'axios'
+import { CalendarIcon, ClockIcon } from 'lucide-react'
 
-function Reservations() {
+function ReservationForm() {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -9,26 +10,54 @@ function Reservations() {
     phone: '',
     date: '',
     time: '',
-    partySize: '',
+    people: '',
     notes: '',
-  });
+  })
+  const [submitted, setSubmitted] = useState(false)
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Reservation submitted successfully!');
-  };
+    e.preventDefault()
+
+    // Combine first and last name for backend compatibility
+    const submissionData = {
+      ...formData,
+      Name: `${formData.firstName} ${formData.lastName}`,
+    }
+
+    axios
+      .post('http://localhost:3000/pages/Reservations/Reservations', submissionData)
+      .then((result) => {
+        console.log('Form submitted successfully:', result.data)
+        alert('Reservation submitted successfully!')
+        // Reset form data after successful submission
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          date: '',
+          time: '',
+          people: '',
+          notes: '',
+        })
+        setSubmitted(true) // Mark as submitted
+      })
+      .catch((err) => {
+        console.error('Error submitting reservation:', err)
+        alert('Error submitting reservation')
+      })
+  }
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
+    <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-sm">
       <h1 className="text-2xl font-medium text-indigo-700 mb-6">
         Restaurant Reservation Form
       </h1>
@@ -83,47 +112,49 @@ function Reservations() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
-            <label className="block text-sm text-gray-600 mb-1">
-              Reservation Date
-            </label>
+            <label className="block text-sm text-gray-600 mb-1">Reservation Date</label>
             <div className="relative">
               <input
-                type="date"
+                type="text"
                 name="date"
+                placeholder="MM/DD/YYYY"
                 value={formData.date}
                 onChange={handleChange}
+                onFocus={(e) => (e.target.type = 'date')}
+                onBlur={(e) => (e.target.type = 'text')}
                 className="w-full p-2 border border-gray-300 rounded"
                 required
               />
-              <CalendarIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+              <CalendarIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
             </div>
           </div>
           <div>
-            <label className="block text-sm text-gray-600 mb-1">
-              Reservation Time
-            </label>
+            <label className="block text-sm text-gray-600 mb-1">Reservation Time</label>
             <div className="relative">
               <input
-                type="time"
+                type="text"
                 name="time"
+                placeholder="HH:MM AM"
                 value={formData.time}
                 onChange={handleChange}
+                onFocus={(e) => (e.target.type = 'time')}
+                onBlur={(e) => (e.target.type = 'text')}
                 className="w-full p-2 border border-gray-300 rounded"
                 required
               />
-              <ClockIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+              <ClockIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
             </div>
           </div>
         </div>
         <div className="mb-4">
           <label className="block text-sm text-gray-600 mb-1">
-            How many persons will you be with?
+            How many person will you be with?
           </label>
           <input
             type="number"
-            name="partySize"
+            name="people"
             min="1"
-            value={formData.partySize}
+            value={formData.people}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded"
             required
@@ -133,7 +164,7 @@ function Reservations() {
           <label className="block text-sm text-gray-600 mb-1">Notes</label>
           <textarea
             name="notes"
-            rows={4}
+            rows="4"
             value={formData.notes}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded resize-none"
@@ -143,11 +174,11 @@ function Reservations() {
           type="submit"
           className="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-3 px-4 rounded font-medium"
         >
-          SEND
+          SUBMIT
         </button>
       </form>
     </div>
-  );
+  )
 }
 
-export default Reservations;
+export default ReservationForm
