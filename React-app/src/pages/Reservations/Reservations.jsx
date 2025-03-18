@@ -174,7 +174,7 @@ function ReservationForm() {
           type="submit"
           className="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-3 px-4 rounded font-medium"
         >
-          SUBMIT
+         SUBMIT
         </button>
       </form>
     </div>
