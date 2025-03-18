@@ -1,5 +1,5 @@
 import express from 'express';
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 import cors from 'cors';
 import dotenv from 'dotenv';
 
@@ -25,24 +25,11 @@ if (!mongoUrl) {
 }
 
 
-
-
-
-
-
-
-mongoose.connect(mongoUrl , {
-  dbName: 'ceylonFlavors', // Force Mongoose to use the ceylonFlavors database
+mongoose.connect(mongoUrl).then(()=>{
+  console.log("Connected to MongoDB")
+}).catch((error)=>{
+  console.error("Error connecting to MongoDB", error.messege);
 })
-
-
-
-
-
-
-
-
-
 
 
   .then(() => console.log('Connected to MongoDB'))
@@ -50,3 +37,20 @@ mongoose.connect(mongoUrl , {
     console.error('Error connecting to MongoDB:', error.message);
   });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

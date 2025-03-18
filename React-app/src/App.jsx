@@ -7,11 +7,6 @@ import Header from './component/HeaderComponent/Header';
 
 
 
-
-
-
-
-
 function App() {
  
 
@@ -23,6 +18,7 @@ function App() {
         <Routes>
           <Route path='/component/HeaderComponent/Header' element={<Header />}></Route>
           <Route path='/pages/Reservations/Reservations' element={<Reservations />}></Route>
+
 
 
 
