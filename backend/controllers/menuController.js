@@ -1,4 +1,4 @@
-const Menu = require("../models/menuModel");
+import Menu from "../modles/menu.model.js"; 
 
 // Get all menu items
 exports.getMenus = async (req, res) => {

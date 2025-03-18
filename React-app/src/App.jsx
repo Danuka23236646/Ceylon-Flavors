@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import Menu from './component/Menu'
+import Menu from './pages/menu/Menu';
 
 
 

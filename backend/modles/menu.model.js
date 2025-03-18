@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const menuSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -7,4 +7,5 @@ const menuSchema = new mongoose.Schema({
     availability: { type: Boolean, default: true },
 });
 
-module.exports = mongoose.model('Menu', menuSchema);
+export default mongoose.model('Menu', menuSchema);
+
