@@ -3,18 +3,12 @@ import './App.css'
 
 
 
-function App() {
-  const [reviews, setReviews] = useState([]);
 
-  const addReview = (review) => {
-    setReviews([...reviews, review]);
-  };
+function App() {
+ 
 
   return (
-    <div id="wrapper"> 
-     
-    </div>
-  );
+
 }
 
 export default App;
