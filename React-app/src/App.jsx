@@ -1,33 +1,40 @@
-import { useState } from 'react'
-import './App.css'
-import {BrowserRouter, Routes, Route}from 'react-router-dom'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Reservations from './pages/Reservations/Reservations';
-import Header from './component/HeaderComponent/Header';
+import Reservation from './pages/reservation/Reservation';
+import Header from './component/header';
+import HomePage from './pages/home/home';
+import Footer from './component/footer';
+
+import ReservationBackground from './pages/reservation/ReservationBackground';
+import ReservationList from './pages/reservation/reservationList';
+
+
+
+
 
 
 
 function App() {
- 
+    return (
+        <Router>
+            <div id="wrapper">
+                <Header />
+                
+                
+                <Routes>
+                    <Route path="/pages/home/home" element={<HomePage />} />
+                    <Route path="/pages/reservation/Reservation" element={<Reservation />} />
+                    <Route path="/pages/reservation/ReservationBackground" element={<ReservationBackground />} />
+                    <Route path="/pages/reservation/reservationList" element={<ReservationList />} />
 
-  return (
-    
-
-      
-      <BrowserRouter>
-        <Routes>
-          <Route path='/component/HeaderComponent/Header' element={<Header />}></Route>
-          <Route path='/pages/Reservations/Reservations' element={<Reservations />}></Route>
-       
-
-
-
-
-        </Routes>
-      </BrowserRouter>
-      
-    
-  )
+                </Routes>
+                
+               
+                <Footer />
+            </div>
+        </Router>
+    );
 }
 
 export default App;
