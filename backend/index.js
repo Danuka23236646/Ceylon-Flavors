@@ -1,51 +1,47 @@
 import express from "express";
 import mongoose from "mongoose";
-import cors from "cors";
 import dotenv from "dotenv";
+import cors from "cors";
+import bodyParser  from "body-parser";
 
 dotenv.config();
 
 const app = express();
 app.use(cors());
-app.use(express.json()); // To parse JSON request bodies
+app.use(express.json());
+const PORT = 5000;
 
 // Importing routes
-import menuRoutes from "./routes/menu.routes.js";
+import menuRoutes from "./routes/menuroute.js";
+
 
 // Use routes
 app.use('/api/menu', menuRoutes);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+
+// Serve uploaded images as static files
+app.use("/uploads", express.static("uploads"));
+
+if (!process.env.MONGODB_URL) {
+    console.error("Error: MONGODB_URL is not defined in .env file.");
+    process.exit(1);
+}
 
 const mongoUrl = process.env.MONGODB_URL;
 
-if (!mongoUrl) {
-  console.error("Connection failed to MongoDB");
-  process.exit(1);
-}
+// Connect to MongoDB (without deprecated options)
+mongoose.connect(mongoUrl)
+    .then(() => {
+        console.log("MongoDB connection successfully");
 
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((error) => {
-    console.error("Error connecting to MongoDB:", error.message);
-  });
+        // Start server only if DB connection is successful
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
 
-
-
+    }).catch((err) => {
+        console.error("MongoDB connection error:", err);
+    });
 
 
 
-
-
-
-
-
-
-
-
- 
