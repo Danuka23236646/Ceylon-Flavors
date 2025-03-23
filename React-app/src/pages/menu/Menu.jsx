@@ -17,17 +17,21 @@ const Menu = () => {
     };
 
     try {
-      await axios.post("http://localhost:5000/api/menu", newItem);
+      await axios.post("http://localhost:5000/api/menu", {
+          name: itemName,
+          description: itemDescription,
+          price: itemPrice,
+          availability: true,
+      });
       console.log("Menu item added successfully!");
       alert("Menu item added successfully!");
       setItemName("");
       setItemDescription("");
-      setItemPrice("");
-      setItemAvailability(true);
-    } catch (error) {
-      console.error("Error adding menu item:", error.message);
-      alert("Failed to add menu item!");
-    }
+  } catch (error) {
+      console.error("Error adding menu item:", error.response?.data || error.message);
+      alert("Error adding menu item: " + (error.response?.data?.message || error.message));
+  }
+  
   };
 
   return (

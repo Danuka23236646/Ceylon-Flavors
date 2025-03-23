@@ -32,27 +32,29 @@ router.get("/:id", async (req, res) => {
 
 // Add a new menu item
 router.post("/", async (req, res) => {
-  const { name, description, price, availability } = req.body;
+    console.log("Received POST data:", req.body);
+    const { name, description, price, availability } = req.body;
 
-  // Input validation
-  if (!name || !description || !price) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
+    if (!name || !description || !price) {
+        return res.status(400).json({ message: "All fields are required" });
+    }
 
-  try {
-    const newItem = new Menu({
-      name,
-      description,
-      price: parseFloat(price), // Ensure price is stored as a number
-      availability: availability ?? true, // Default to true if not specified
-    });
+    try {
+        const newItem = new Menu({
+            name,
+            description,
+            price: parseFloat(price), 
+            availability: availability ?? true,
+        });
 
-    const savedItem = await newItem.save();
-    res.status(201).json(savedItem);
-  } catch (error) {
-    res.status(500).json({ message: "Error saving item: " + error.message });
-  }
+        const savedItem = await newItem.save();
+        res.status(201).json(savedItem);
+    } catch (error) {
+        console.error("Error saving item:", error.message);
+        res.status(500).json({ message: "Error saving item: " + error.message });
+    }
 });
+
 
 // Update an existing menu item
 router.put("/:id", async (req, res) => {

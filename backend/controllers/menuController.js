@@ -1,7 +1,7 @@
-import Menu from "../modles/menu.model.js"; 
+import Menu from "../models/menu.model.js"; 
 
 // Get all menu items
-exports.getMenus = async (req, res) => {
+export const getMenus = async (req, res) => {
     try {
         const menus = await Menu.find();
         res.json(menus);
@@ -11,11 +11,12 @@ exports.getMenus = async (req, res) => {
 };
 
 // Add a new menu item
-exports.addMenu = async (req, res) => {
-    const { name, description, price, image } = req.body;
+export const addMenu = async (req, res) => {
+    const { name, description, price, availability } = req.body;
+    const image = req.file ? req.file.path : "";
 
     try {
-        const newMenu = new Menu({ name, description, price, image });
+        const newMenu = new Menu({ name, description, price, availability, image });
         await newMenu.save();
         res.json(newMenu);
     } catch (error) {
@@ -24,12 +25,17 @@ exports.addMenu = async (req, res) => {
 };
 
 // Update an existing menu item
-exports.updateMenu = async (req, res) => {
+export const updateMenu = async (req, res) => {
     const { id } = req.params;
-    const { name, description, price, image } = req.body;
+    const { name, description, price, availability } = req.body;
+    const image = req.file ? req.file.path : "";
 
     try {
-        const updatedMenu = await Menu.findByIdAndUpdate(id, { name, description, price, image }, { new: true });
+        const updatedMenu = await Menu.findByIdAndUpdate(
+            id,
+            { name, description, price, availability, image },
+            { new: true }
+        );
         res.json(updatedMenu);
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -37,7 +43,7 @@ exports.updateMenu = async (req, res) => {
 };
 
 // Delete a menu item
-exports.deleteMenu = async (req, res) => {
+export const deleteMenu = async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -47,3 +53,4 @@ exports.deleteMenu = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
